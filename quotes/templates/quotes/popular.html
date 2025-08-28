@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Популярные цитаты{% endblock %}
+{% block content %}
+	<h1>Топ 10 по лайкам</h1>
+	{% for quote in quotes %}
+		{% include 'quotes/includes/quote_card.html' %}
+	{% empty %}
+		<p>Пока нет цитат.</p>
+	{% endfor %}
+{% endblock %}
+
+{% block extra_js %}
+	<script src="{% static "deps/js/vote.js" %}"></script>
+{% endblock %}

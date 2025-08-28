@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+	<h1>Категория: {{ category }}</h1>
+	<p>Источники, относящиеся к категории <b>{{ category }}</b>:</p>
+	<table class="table table-striped">
+		<thead>
+		<tr>
+			<th>Источник</th>
+			<th>Число цитат</th>
+			<th>Действия</th>
+		</tr>
+		</thead>
+		<tbody>
+		{% for src in sources %}
+			<tr>
+				<td>{{ src.name }}</td>
+				<td>{{ src.quotes_count }}</td>
+				<td><a class="btn btn-sm btn-outline-primary" href="{% url 'dashboard:quotes' category.id src.id %}">Открыть</a></td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

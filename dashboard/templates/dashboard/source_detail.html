@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+	<h1>Цитаты — {{ source }}</h1>
+
+	<table class="table table-striped">
+		<thead>
+		<tr>
+			<th>Текст цитаты</th>
+			<th>Вес</th>
+			<th>Лайки</th>
+			<th>Дизлайки</th>
+			<th>Просмотры</th>
+			<th>Действия</th>
+		</tr>
+		</thead>
+		<tbody class="table-body">
+		{% for quote in quotes %}
+			<tr class="table-row">
+				<td style="white-space: pre-wrap;">{{ quote.text }}</td>
+				<td>
+					<form method="post" action="{% url 'api:change-weight' %}" class="change-weight-form d-flex gap-2 align-items-center">
+						{% csrf_token %}
+						<input type="hidden" name="quote_id" value="{{ quote.id }}">
+						<input type="number" name="weight" value="{{ quote.weight }}" min="1" max="100"
+						       class="form-control form-control-sm" style="width:80px"/>
+						<button class="btn btn-sm btn-primary">💾</button>
+					</form>
+				</td>
+				<td>{{ quote.likes }}</td>
+				<td>{{ quote.dislikes }}</td>
+				<td>{{ quote.views }}</td>
+				<td>
+					<form class="del-quote-form" method="post" action="{% url 'api:delete-quote' %}">
+						{% csrf_token %}
+						<input type="hidden" name="quote_id" value="{{ quote.id }}">
+						<button type="submit" class="btn btn-sm btn-danger">Удалить</button>
+					</form>
+				</td>
+			</tr>
+		{% endfor %}
+		<tr id="no-quotes-placeholder" style="display: none">
+			<td colspan="6" class="text-center">Нет цитат для источника.</td>
+		</tr>
+		</tbody>
+	</table>
+{% endblock %}
+{% block extra_js %}
+	<script src="{% static "deps/js/quote.js" %}"></script>
+{% endblock %}

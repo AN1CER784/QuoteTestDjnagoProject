@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1>Дашборд</h1>
+
+
+	<h2>Категории</h2>
+	<table class="table table-bordered">
+		<thead>
+		<tr>
+			<th>Категория</th>
+			<th>Количество источников</th>
+			<th>Количество цитат</th>
+			<th>Действия</th>
+		</tr>
+		</thead>
+		<tbody>
+		{% for cat in categories %}
+			<tr>
+				<td>{{ cat.name }}</td>
+				<td>{{ cat.sources_count }}</td>
+				<td>{{ cat.quotes_count }}</td>
+				<td><a href="{% url 'dashboard:sources' cat.id %}" class="btn btn-sm btn-outline-primary">Открыть</a>
+				</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+
+
+{% endblock %}

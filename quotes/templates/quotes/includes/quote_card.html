@@ -1,0 +1,23 @@
+{% load static %}
+<div class="card quote-card" data-quote-id="{{ quote.id }}">
+	<div class="card-body">
+		<p class="quote-text">{{ quote.text }}</p>
+		<p class="small-muted">Источник: {{ quote.source }} • Вес: {{ quote.weight }}</p>
+		<p>Просмотры: <span class="views-count" data-id="{{ quote.id }}">{{ quote.views }}</span></p>
+		<p>Лайки: <span class="likes-count" data-id="{{ quote.id }}">{{ quote.likes }}</span>
+			Дизлайки: <span class="dislikes-count" data-id="{{ quote.id }}">{{ quote.dislikes }}</span></p>
+		<div class="btn-group" role="group">
+			<form class="vote-form" action="{% url 'api:vote' quote.pk %}" method="post">
+				{% csrf_token %}
+				<input type="hidden" name="value" value="1">
+				<button class="btn btn-sm btn-outline-success vote-btn" data-id="{{ quote.id }}">👍</button>
+			</form>
+			<form class="vote-form" action="{% url 'api:vote' quote.pk %}" method="post">
+				{% csrf_token %}
+				<input type="hidden" name="value" value="-1">
+				<button class="btn btn-sm btn-outline-danger vote-btn" data-id="{{ quote.id }}">👎</button>
+			</form>
+
+		</div>
+	</div>
+</div>

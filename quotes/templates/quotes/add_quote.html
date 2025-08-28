@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Добавить цитату{% endblock %}
+{% block content %}
+<h1>Добавить новую цитату</h1>
+<form method="post" action="{% url 'quotes:add-quote' %}" id="quoteForm">
+  {% csrf_token %}
+  <div class="mb-3">
+    <label class="form-label">Текст цитаты</label>
+    <textarea name="text" placeholder="Какой-то текст" class="form-control" rows="3" required>{% if form.text.value %}{{ form.text.value }}{% endif %}</textarea>
+    {% if form.text.errors %}<div class="text-danger">{{ form.text.errors }}</div>{% endif %}
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Категория</label>
+    <select name="category" id="categorySelect" class="form-select" required>
+      <option value="">Выберите категорию </option>
+      {% for category in categories %}
+        <option value="{{ category.id }}">{{ category.name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Источник</label>
+    <input list="sourceOptions"  placeholder="Название источника" name="source" id="sourceInput" class="form-control" value="{% if form.source.value %}{{ form.source.value }}{% endif %}" required />
+    {% if form.source.errors %}<div class="text-danger">{{ form.source.errors }}</div>{% endif %}
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Вес (чем выше — тем чаще выдаётся)</label>
+    <input type="number" name="weight" min="1" max="100" class="form-control" value="{{ form.weight.value|default:1 }}" required />
+    {% if form.weight.errors %}<div class="text-danger">{{ form.weight.errors }}</div>{% endif %}
+    <div class="form-text">Ограничения: не допускать дубликаты; у источника не более 3 цитат.</div>
+  </div>
+
+  <button class="btn btn-success" type="submit">Добавить</button>
+</form>
+
+{% endblock %}
