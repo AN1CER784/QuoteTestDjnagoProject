@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Вход в систему</h2>
+
+  <form method="post">
+    {% csrf_token %}
+    {% if form.errors %}
+      <div class="alert alert-danger">
+        <strong>Ошибки:</strong>
+        <ul>
+          {% for field in form %}
+            {% for error in field.errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    <div>
+      <label for="{{ form.username.id_for_label }}">Имя пользователя:</label>
+      {{ form.username }}
+    </div>
+
+    <div>
+      <label for="{{ form.password.id_for_label }}">Пароль:</label>
+      {{ form.password }}
+    </div>
+
+    <div>
+      <button type="submit">Войти</button>
+    </div>
+  </form>
+
+  <p>Нет аккаунта? <a href="{% url 'users:register' %}">Зарегистрироваться</a></p>
+{% endblock %}

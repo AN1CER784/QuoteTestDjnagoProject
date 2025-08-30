@@ -1,9 +1,11 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
 
 from quotes.models import Quote
 
 
-class PopularQuotesView(ListView):
+class PopularQuotesView(LoginRequiredMixin, ListView):
+    """View 10 самых популярный цитат по лайкам, дизлайкам и весу"""
     model = Quote
     template_name = 'quotes/popular.html'
     context_object_name = 'quotes'

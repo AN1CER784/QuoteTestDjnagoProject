@@ -21,5 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('quotes.urls', namespace='quotes')),
     path('dashboard/', include('dashboard.urls', namespace='dashboard')),
+    path('users/', include('users.urls', namespace='users')),
     path('api/', include('api.urls', namespace='api'))
 ]

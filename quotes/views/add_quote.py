@@ -1,6 +1,7 @@
 import logging
 
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 
@@ -10,7 +11,8 @@ from quotes.models import Category
 logger = logging.getLogger(__name__)
 
 
-class AddQuoteView(CreateView):
+class AddQuoteView(LoginRequiredMixin, CreateView):
+    """View для добавления цитаты"""
     form_class = QuoteForm
     template_name = 'quotes/add_quote.html'
     success_url = reverse_lazy('quotes:index')

@@ -1,11 +1,12 @@
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView
 
 from quotes.models import Quote
 from quotes.services import set_seen
 
 
-class RandomQuoteView(DetailView):
+class RandomQuoteView(LoginRequiredMixin, DetailView):
+    """View для просмотра рандомной цитаты с увеличением шанса выдачи по весу"""
     context_object_name = 'quote'
     template_name = 'quotes/index.html'
     model = Quote

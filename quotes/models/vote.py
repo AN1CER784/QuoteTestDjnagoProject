@@ -2,6 +2,12 @@ from django.db import models
 
 
 class Vote(models.Model):
+    """
+    Модель голоса.
+    Связи:
+    - Many-to-One с Quote (много голосов - одна цитата)
+    - Many-to-One с User (много голосов - один пользователь)
+    """
     LIKE = 1
     DISLIKE = -1
     VALUE_CHOICES = ((LIKE, 'Like'), (DISLIKE, 'Dislike'))

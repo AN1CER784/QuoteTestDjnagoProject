@@ -6,6 +6,11 @@ from django.db import models, transaction
 
 
 class QuoteQuerySet(models.QuerySet):
+    """
+    Кастомные методы для выборки цитат:
+    - get_random_weighted: возвращает случайную цитату с учетом её веса
+    - with_votes: добавляет количество лайков и дизлайков для каждой цитаты
+    """
     def get_random_weighted(self):
         quotes = list(self.all())
         if not quotes:
@@ -22,6 +27,12 @@ class QuoteQuerySet(models.QuerySet):
 
 
 class Quote(models.Model):
+    """
+    Модель цитаты.
+    Связи:
+    - Many-to-One с Source (много цитат - один источник)
+    - Many-to-One с User (много цитат - один пользователь)
+    """
     text = models.TextField()
     source = models.ForeignKey('Source', on_delete=models.CASCADE)
     weight = models.PositiveIntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(100)])

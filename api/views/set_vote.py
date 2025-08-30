@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.views import View
@@ -5,8 +6,9 @@ from django.views import View
 from api.services import process_vote
 
 
-class SetVoteView(View):
+class SetVoteView(LoginRequiredMixin,View):
     def post(self, request, pk):
+        """API для выставления голоса (лайка/дизлайка) за цитату"""
         value = request.POST.get('value')
         if not value:
             return JsonResponse({'status': 'error', 'message': 'Не указано значение голоса'}, status=400)
