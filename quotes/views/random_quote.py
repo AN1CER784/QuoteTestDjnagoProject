@@ -11,6 +11,10 @@ class RandomQuoteView(LoginRequiredMixin, DetailView):
     template_name = 'quotes/index.html'
     model = Quote
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._cached_obj = None
+
     def get_object(self, queryset=None):
         if not hasattr(self, '_cached_obj'):
             self._cached_obj = Quote.objects.with_votes().get_random_weighted()
