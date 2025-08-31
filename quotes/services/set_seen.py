@@ -10,4 +10,3 @@ def set_seen(request, pk):
         Quote.objects.filter(pk=pk).update(views=F('views') + 1)
         seen.add(str(pk))
         request.session['seen_quotes'] = list(seen)
-        request.session.modified = True
