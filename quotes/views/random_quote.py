@@ -12,7 +12,9 @@ class RandomQuoteView(LoginRequiredMixin, DetailView):
     model = Quote
 
     def get_object(self, queryset=None):
-        return Quote.objects.with_votes().get_random_weighted()
+        if not hasattr(self, '_cached_obj'):
+            self._cached_obj = Quote.objects.with_votes().get_random_weighted()
+        return self._cached_obj
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -23,4 +25,3 @@ class RandomQuoteView(LoginRequiredMixin, DetailView):
         pk = self.get_object().pk
         set_seen(request, pk)
         return super().get(request, *args, **kwargs)
-
