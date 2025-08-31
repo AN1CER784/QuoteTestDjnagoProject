@@ -1,16 +1,15 @@
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
 
 from quotes.models import Quote, Source
 
 
-class DashBoardQuotesView(PermissionRequiredMixin, ListView):
+class DashBoardQuotesView(LoginRequiredMixin, ListView):
     """View для отображения цитат источника в Dashboard после перехода по конкретному источнику"""
     model = Quote
     template_name = 'dashboard/source_detail.html'
     context_object_name = 'quotes'
     slug_url_kwarg = 'source_id'
-    permission_required = 'quotes.change_quote'
 
     def get_queryset(self):
         return Quote.objects.filter(source_id=self.kwargs.get(self.slug_url_kwarg)).with_votes().order_by('-weight')

@@ -1,11 +1,11 @@
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.views import View
 
 from api.mixins import QuoteAPIMixin
 
 
-class ChangeWeightView(PermissionRequiredMixin, QuoteAPIMixin, View):
+class ChangeWeightView(LoginRequiredMixin, QuoteAPIMixin, View):
     """API для изменение веса цитаты в dashboard"""
     permission_required = 'quotes.change_quote'
 
