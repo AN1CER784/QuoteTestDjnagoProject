@@ -1,0 +1,16 @@
+[
+  {
+    "model": "quotes.category",
+    "pk": 1,
+    "fields": {
+      "name": "Книги"
+    }
+  },
+  {
+    "model": "quotes.category",
+    "pk": 2,
+    "fields": {
+      "name": "Фильмы"
+    }
+  }
+]

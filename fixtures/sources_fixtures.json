@@ -1,0 +1,11 @@
+[
+  {
+    "model": "quotes.source",
+    "pk": 1,
+    "fields": {
+      "name": "Мастер и Маргарита",
+      "category": 1,
+      "user": 1
+    }
+  }
+]

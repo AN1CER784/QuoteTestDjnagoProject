@@ -1,0 +1,13 @@
+[
+  {
+    "model": "quotes.quote",
+    "pk": 1,
+    "fields": {
+      "text": "Рукописи не горят",
+      "source": 1,
+      "weight": 3,
+      "views": 1,
+      "user": 1
+    }
+  }
+]

@@ -18,7 +18,7 @@ $(document).ready(function () {
             },
             error: function (xhr, status, err) {
                 console.error('vote error', status, err, xhr.responseText);
-                return showMessage('An error occurred. Please try again later.', false);
+                return showMessage('Ошибка сервера при попытке проголосовать.', false);
             }
         });
     });
